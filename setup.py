@@ -5,7 +5,7 @@ setup(
     version="0.1.0",
     author="Jeremy Schulman",
     author_email="nwkautomaniac@gmail.com",
-    description=("string generator for bracket patters"),
+    description=("string generator for bracket patterns"),
     license="GNU GPLv3",
     url="https://github.com/jeremyschulman/bracket_expansion",
     py_modules=['bracket_expansion'],
