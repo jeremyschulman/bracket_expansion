@@ -2,9 +2,9 @@
 #
 #   This code is free software: you can redistribute it and/or modify
 #   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation, either version 3 of the License.  A
-#   copy of this license can be found accompanying this sofware
-#   respository.  You can also find a copy of the GNU General Public License
+#   the Free Software Foundation, version 3 of the License.  A copy of
+#   this license can be found accompanying this sofware respository.
+#   You can also find a copy of the GNU General Public License
 #   here: <http://www.gnu.org/licenses/gpl-3.0.html>
 #
 #   The author provides no warranties regarding the software, which is
