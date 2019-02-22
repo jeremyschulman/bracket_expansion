@@ -19,6 +19,12 @@
 
 import re
 from itertools import product
+import six
+
+if six.PY2:
+    xrange = xrange
+else:
+    xrange = range
 
 __all__ = ['bracket_expansion']
 
