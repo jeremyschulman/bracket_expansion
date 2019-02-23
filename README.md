@@ -63,4 +63,4 @@ Ethernet2/2
 Ethernet2/10
 ```
 
-For more details see the `bracket_expand` docstring.
+For more details see the `bracket_expansion` docstring.
