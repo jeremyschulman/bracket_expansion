@@ -1,5 +1,8 @@
 from setuptools import setup
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
 setup(
     name="bracket_expansion",
     version="0.2.0",
@@ -9,6 +12,8 @@ setup(
     license="Apache 2.0",
     url="https://github.com/jeremyschulman/bracket_expansion",
     py_modules=['bracket_expansion'],
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
