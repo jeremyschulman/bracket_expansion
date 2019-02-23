@@ -5,8 +5,8 @@ setup(
     version="0.2.0",
     author="Jeremy Schulman",
     author_email="nwkautomaniac@gmail.com",
-    description=("string generator for bracket patterns"),
-    license="GNU GPLv3",
+    description="string generator for bracket patterns",
+    license="Apache 2.0",
     url="https://github.com/jeremyschulman/bracket_expansion",
     py_modules=['bracket_expansion'],
     classifiers=[

@@ -1,21 +1,17 @@
-#   Copyright (c) 2015, Jeremy Schulman (nwkautomaniac@gmail.com)
 #
-#   This code is free software: you can redistribute it and/or modify
-#   it under the terms of the GNU General Public License as published by
-#   the Free Software Foundation, version 3 of the License.  A copy of
-#   this license can be found accompanying this sofware respository.
-#   You can also find a copy of the GNU General Public License
-#   here: <http://www.gnu.org/licenses/gpl-3.0.html>
+# Copyright 2015, 2019 Jeremy Schulman, nwkautomaniac@gmail.com
 #
-#   The author provides no warranties regarding the software, which is
-#   provided "AS-IS" and your use of this software is entirely at your
-#   own risk.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR DAMAGES OF ANY
-#   KIND RELATING TO USE OF THE SOFTWARE, INCLUDING WITHOUT LIMITATION
-#   ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-#   DAMAGES; ANY PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-#   DATA, OR PROFITS; OR BUSINESS INTERRUPTION, HOWEVER CAUSED AND ON ANY
-#   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-#   (INCLUDING NEGLIGENCE), EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
 import re
 from itertools import product
@@ -24,7 +20,7 @@ import six
 if six.PY3:
     xrange = range
 
-__all__ = ['bracket_expansion']
+__all__ = ['bracket_expansion', 'expand']
 
 _bracket = r'\[.+?\]'
 _bracket_extract = r'\[(-?\d+)\-(-?\d+)(,\d)?\]'
