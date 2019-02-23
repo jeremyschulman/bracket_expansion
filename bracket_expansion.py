@@ -21,15 +21,13 @@ import re
 from itertools import product
 import six
 
-if six.PY2:
-    xrange = xrange
-else:
+if six.PY3:
     xrange = range
 
 __all__ = ['bracket_expansion']
 
-_bracket = '\[.+?\]'
-_bracket_extract = '\[(-?\d+)\-(-?\d+)(,\d)?\]'
+_bracket = r'\[.+?\]'
+_bracket_extract = r'\[(-?\d+)\-(-?\d+)(,\d)?\]'
 
 
 def bracket_expansion(pattern, default_step=1):
@@ -84,3 +82,23 @@ def bracket_expansion(pattern, default_step=1):
     for each in repls:
         nums = list(each)
         yield(re_br.sub(lambda x: str(nums.pop(0)), pattern))
+
+
+def expand(pattern, default_step=1):
+    """
+    This function will return the expanded list of values.
+
+    Parameters
+    ----------
+    pattern : str
+        The bracket expansion expression.
+
+    default_step : int (optional)
+        The default numeric step
+
+    Returns
+    -------
+    list[str]
+        List of string values as expanded.
+    """
+    return list(bracket_expansion(pattern, default_step))
