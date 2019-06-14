@@ -22,8 +22,9 @@ if six.PY3:
 
 __all__ = ['bracket_expansion', 'expand']
 
-_bracket = r'\[.+?\]'
-_bracket_extract = r'\[(-?\d+)\-(-?\d+)(,\d)?\]'
+
+_re_brackets = re.compile(r'\[.+?\]')
+_re_ranges = re.compile(r'\[(?P<start>-?\d+)-(?P<stop>-?\d+)(,(?P<step>-?\d+))?\]')
 
 
 def bracket_expansion(pattern, default_step=1):
@@ -43,24 +44,37 @@ def bracket_expansion(pattern, default_step=1):
         for ifname in ifs:
             print ifname
 
-    You can also get the complete list of values by applying
-    the 'list' function, for example:
+    The pattern can also be a "reversed" range, for example:
+        ifs = bracket_expansion("M[48-1,-1]")
 
-        ifs = list(bracket_expansion('ge-0/0/[0-47]'))
-        # ifs is now a list containing 48 entries
+    which will result in the generator creating interfaces
+        M48, M47, ... M1
     """
-    re_br = re.compile(_bracket)
-    re_ext = re.compile(_bracket_extract)
 
     # extract brackets from pattern
 
-    brackets = re_br.findall(pattern)
+    brackets = _re_brackets.findall(pattern)
 
-    # extact values from the brackets [start-stop,step]  the step
+    # extract values from the brackets [start-stop,step]  the step
     # value is optional, and defaults to :default_step:
 
-    range_inputs = lambda n: (int(n[0]), int(n[1])+1, default_step if not n[2] else int(n[2][1:]))
-    extracts = [range_inputs(re_ext.match(b).groups()) for b in brackets]
+    def range_inputs(bracket):
+        match = _re_ranges.match(bracket)
+        if not match:
+            raise RuntimeError("Invalid bracket expression: %s" % bracket)
+
+        m_dict = match.groupdict()
+        start = int(m_dict['start'])
+        step = int(m_dict['step'] or default_step)
+
+        # stop is optional, and needs to adjust +/- based on the step value
+
+        stop = m_dict['stop']
+        stop = start if stop is None else int(stop) + (1 if step > 0 else -1)
+
+        return start, stop, step
+
+    extracts = [range_inputs(b) for b in brackets]
 
     # create the replacement numbers for each generator value by
     # taking the product of the extracted bracket values.  the product function
@@ -68,16 +82,16 @@ def bracket_expansion(pattern, default_step=1):
 
     repls = product(*[xrange(*n) for n in extracts])
 
-    # create generator to string-substitue the replacement value
+    # create generator to string-substitute the replacement value
     # into the pattern on each iteration.  the technique is to make
     # each replacement value (originally a tuple) into a list.
     # this makes it pop'able.  so (1,2) becomes [1,2] so we can pop
-    # values off the fron as the re.sub function iterates through
+    # values off the front as the re.sub function iterates through
     # the string, yo!
 
     for each in repls:
         nums = list(each)
-        yield(re_br.sub(lambda x: str(nums.pop(0)), pattern))
+        yield(_re_brackets.sub(lambda x: str(nums.pop(0)), pattern))
 
 
 def expand(pattern, default_step=1):
